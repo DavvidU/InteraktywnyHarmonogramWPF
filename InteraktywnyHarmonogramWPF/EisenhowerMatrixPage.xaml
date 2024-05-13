@@ -34,7 +34,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Pilne i Ważne" FontWeight="Bold" Margin="5"/>
-                            <Button Grid.Column="1" Margin="5" Click="AddTask_Click">+</Button>
+                            <Button Grid.Column="1" Margin="5" Tag="PW" Click="AddTask_Click">+</Button>
                         </Grid>
                         <ListView ItemsSource="{Binding PilneWazneZadania}">
                             <ListView.ItemContainerStyle>
@@ -62,7 +62,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Niepilne, ale ważne" FontWeight="Bold" Margin="5"/>
-                            <Button Grid.Column="1" Margin="5" Click="AddTask_Click">+</Button>
+                            <Button Grid.Column="1" Margin="5" Tag="NW" Click="AddTask_Click">+</Button>
                         </Grid>
                         <ListView ItemsSource="{Binding NiepilneWazneZadania}">
                             <ListView.ItemContainerStyle>
@@ -90,7 +90,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Pilne, ale nieważne" FontWeight="Bold" Margin="5"/>
-                            <Button Grid.Column="1" Margin="5" Click="AddTask_Click">+</Button>
+                            <Button Grid.Column="1" Margin="5" Tag="PN" Click="AddTask_Click">+</Button>
                         </Grid>
                         <ListView ItemsSource="{Binding PilneNiewazneZadania}">
                             <ListView.ItemContainerStyle>
@@ -118,7 +118,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Niepilne i nieważne" FontWeight="Bold" Margin="5"/>
-                            <Button Grid.Column="1" Margin="5" Click="AddTask_Click">+</Button>
+                            <Button Grid.Column="1" Margin="5" Tag="NN" Click="AddTask_Click">+</Button>
                         </Grid>
                         <ListView ItemsSource="{Binding NiepilneNiewazneZadania}">
                             <ListView.ItemContainerStyle>

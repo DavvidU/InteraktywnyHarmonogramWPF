@@ -25,7 +25,7 @@
                     
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Zadania na ten dzień" FontWeight="Bold" Margin="5"/>
-                        <Button Grid.Column="1" Margin="5" Click="AddTask_Click">+</Button>
+                        <Button Grid.Column="1" Margin="5" Tag="{Binding SelectedDate}" Click="AddTask_Click">+</Button>
                     </Grid>
                     <ListView ItemsSource="{Binding TasksInSelectedDay}">
                         <ListView.ItemContainerStyle>

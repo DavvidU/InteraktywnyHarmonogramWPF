@@ -52,6 +52,12 @@ namespace InteraktywnyHarmonogramWPF
                 }
             }
         }
-        private void AddTask_Click(object sender, RoutedEventArgs e) { }
+        private void AddTask_Click(object sender, RoutedEventArgs e) 
+        {
+            Button clickedAddTaskButton = sender as Button;
+
+            var addTaskPage = new AddTaskPage { DataContext = new AddTaskViewModel(clickedAddTaskButton.Tag.ToString()) };
+            NavigationService.Navigate(addTaskPage);
+        }
     }
 }
