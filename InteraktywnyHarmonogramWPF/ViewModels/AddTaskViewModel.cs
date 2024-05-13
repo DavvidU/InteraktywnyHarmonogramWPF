@@ -13,11 +13,25 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
     {
         public string sender;
 
+        public bool Pilne { get; set; }
+
+        public bool Wazne { get; set; }
+
         public ICommand SaveCommand { get; private set; }
 
         public AddTaskViewModel(string sender)
         {
-            sender = this.sender;
+            this.sender = sender;
+
+            if (sender == "PW" || sender == "PN")
+                Pilne = true;
+            else
+                Pilne = false;
+
+            if (sender == "PW" || sender == "NW")
+                Wazne = true;
+            else
+                Wazne = false;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

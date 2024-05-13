@@ -16,8 +16,8 @@
                  TextWrapping="Wrap"
                  AcceptsReturn="True"
                  VerticalScrollBarVisibility="Auto"/>
-            <CheckBox Content="Pilne" Margin="5"/>
-            <CheckBox Content="Ważne" Margin="5"/>
+            <CheckBox Content="Pilne" IsChecked="{Binding Pilne, Mode=TwoWay}" Margin="5"/>
+        <CheckBox Content="Ważne" IsChecked="{Binding Wazne, Mode=TwoWay}" Margin="5"/>
             <CheckBox Content="Wykonane" Margin="5"/>
             <Button Content="Dodaj" Margin="5"/>
         </StackPanel>
