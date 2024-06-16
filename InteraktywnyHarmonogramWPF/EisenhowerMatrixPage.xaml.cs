@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace InteraktywnyHarmonogramWPF
 {
@@ -26,15 +27,51 @@ namespace InteraktywnyHarmonogramWPF
         {
             InitializeComponent();
             DataContext = new EisenhowerMatrixViewModel();
+            Loaded += EisenhowerMatrixPage_Loaded;
+        }
+        private void EisenhowerMatrixPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Storyboard sb = (Storyboard)FindResource("ColorAnimationStoryboard");
+            sb.Begin(AnimatedTextBlock);
         }
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListViewItem item && item.DataContext is Zadanie selectedTask)
             {
-                var detailsPage = new TaskDetailsPage { DataContext = new TaskDetailsViewModel(selectedTask) };
+                var listView = FindAncestor<ListView>(item);
+                string category = GetCategoryByListView(listView);
+                var matrixViewModel = (EisenhowerMatrixViewModel)this.DataContext;
+                var detailsPage = new TaskDetailsPage(selectedTask, category, matrixViewModel);
                 this.NavigationService.Navigate(detailsPage);
             }
         }
+
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            while (current != null && !(current is T))
+            {
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return current as T;
+        }
+
+        private string GetCategoryByListView(ListView listView)
+        {
+            if (listView == null)
+                return string.Empty;
+
+            if (listView.Name == "PilneWazneListView")
+                return "PW";
+            else if (listView.Name == "NiepilneWazneListView")
+                return "NW";
+            else if (listView.Name == "PilneNiewazneListView")
+                return "PN";
+            else if (listView.Name == "NiepilneNiewazneListView")
+                return "NN";
+
+            return string.Empty;
+        }
+
         private void NavigateButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -52,12 +89,14 @@ namespace InteraktywnyHarmonogramWPF
                 }
             }
         }
-        private void AddTask_Click(object sender, RoutedEventArgs e) 
+
+        private void AddTask_Click(object sender, RoutedEventArgs e)
         {
             Button clickedAddTaskButton = sender as Button;
 
             var addTaskPage = new AddTaskPage { DataContext = new AddTaskViewModel(clickedAddTaskButton.Tag.ToString()) };
             NavigationService.Navigate(addTaskPage);
         }
+
     }
 }

@@ -39,22 +39,22 @@ namespace InteraktywnyHarmonogramWPF.Helpers
             {
                 if (i == 0)
                 {
-                    zadaniaTejKategorii = macierz.PilneWazne;
+                    zadaniaTejKategorii = new List<Zadanie>(macierz.PilneWazne);
                     akronimKategorii = "PW";
                 }
                 else if (i == 1)
                 {
-                    zadaniaTejKategorii = macierz.NiepilneWazne;
+                    zadaniaTejKategorii = new List<Zadanie>(macierz.NiepilneWazne);
                     akronimKategorii = "NW";
                 }
                 else if (i == 2)
                 {
-                    zadaniaTejKategorii = macierz.PilneNiewazne;
+                    zadaniaTejKategorii = new List<Zadanie>(macierz.PilneNiewazne);
                     akronimKategorii = "PN";
                 }
                 else // i == 3
                 {
-                    zadaniaTejKategorii = macierz.NiepilneNiewazne;
+                    zadaniaTejKategorii =   new List<Zadanie>(macierz.NiepilneNiewazne);
                     akronimKategorii = "NN";
                 }
 

@@ -10,12 +10,12 @@ using InteraktywnyHarmonogramWPF.Models;
 
 namespace InteraktywnyHarmonogramWPF.ViewModels
 {
-    class EisenhowerMatrixViewModel : INotifyPropertyChanged
+    public class EisenhowerMatrixViewModel : INotifyPropertyChanged
     {
-        public List<Zadanie> PilneWazneZadania { get; set; }
-        public List<Zadanie> NiepilneWazneZadania { get; set; }
-        public List<Zadanie> PilneNiewazneZadania { get; set; }
-        public List<Zadanie> NiepilneNiewazneZadania { get; set; }
+        public ObservableCollection<Zadanie> PilneWazneZadania { get; set; }
+        public ObservableCollection<Zadanie> NiepilneWazneZadania { get; set; }
+        public ObservableCollection<Zadanie> PilneNiewazneZadania { get; set; }
+        public ObservableCollection<Zadanie> NiepilneNiewazneZadania { get; set; }
 
         public EisenhowerMatrixViewModel()
         {
@@ -25,13 +25,69 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
             NiepilneNiewazneZadania = DostepDoDanych.GetZadania("NN");
         }
 
+        public void RegisterAddTaskViewModel(AddTaskViewModel addTaskViewModel)
+        {
+            addTaskViewModel.TaskSaved += AddZadanie;
+        }
+
+        private void AddZadanie(string category,Zadanie zadanie)
+        {
+            switch (category)
+            {
+                case "PW":
+                    PilneWazneZadania.Add(zadanie);
+                    break;
+                case "NW":
+                    NiepilneWazneZadania.Add(zadanie);
+                    break;
+                case "PN":
+                    PilneNiewazneZadania.Add(zadanie);
+                    break;
+                case "NN":
+                    NiepilneNiewazneZadania.Add(zadanie);
+                    break;
+            }
+        }
+        public void RemoveZadanie(Zadanie zadanie, string category)
+        {
+            switch (category)
+            {
+                case "PW":
+                    PilneWazneZadania.Remove(zadanie);
+                    break;
+                case "NW":
+                    NiepilneWazneZadania.Remove(zadanie);
+                    break;
+                case "PN":
+                    PilneNiewazneZadania.Remove(zadanie);
+                    break;
+                case "NN":
+                    NiepilneNiewazneZadania.Remove(zadanie);
+                    break;
+            }
+            OnPropertyChanged(nameof(PilneWazneZadania));
+            OnPropertyChanged(nameof(NiepilneWazneZadania));
+            OnPropertyChanged(nameof(PilneNiewazneZadania));
+            OnPropertyChanged(nameof(NiepilneNiewazneZadania));
+        }
+
+        public void UpdateZadanie(Zadanie task, string category)
+        {
+            RemoveZadanie(task, category);
+            AddZadanie(category, task);
+            OnPropertyChanged(nameof(PilneWazneZadania));
+            OnPropertyChanged(nameof(NiepilneWazneZadania));
+            OnPropertyChanged(nameof(PilneNiewazneZadania));
+            OnPropertyChanged(nameof(NiepilneNiewazneZadania));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        // Tutaj dodaj metody do zarządzania zadaniami
     }
+    // Tutaj dodaj metody do zarządzania zadaniami
 }
+

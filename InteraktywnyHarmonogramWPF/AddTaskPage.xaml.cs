@@ -1,19 +1,9 @@
-﻿using InteraktywnyHarmonogramWPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InteraktywnyHarmonogramWPF.Models;
+using InteraktywnyHarmonogramWPF.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace InteraktywnyHarmonogramWPF
 {
     /// <summary>
@@ -24,6 +14,20 @@ namespace InteraktywnyHarmonogramWPF
         public AddTaskPage()
         {
             InitializeComponent();
+            Loaded += AddTaskPage_Loaded;
+        }
+        private void AddTaskPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Storyboard sb = (Storyboard)FindResource("ColorAnimationStoryboard");
+            sb.Begin(AnimatedTextBlockTask);
+
+            var viewModel = (AddTaskViewModel)DataContext;
+            viewModel.TaskSaved += ViewModel_TaskSaved;
+        }
+        private void ViewModel_TaskSaved(string sender, Zadanie task)
+        {
+
+            NavigationService.GoBack();
         }
     }
 }

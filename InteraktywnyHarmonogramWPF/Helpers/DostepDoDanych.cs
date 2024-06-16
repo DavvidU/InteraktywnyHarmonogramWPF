@@ -1,27 +1,15 @@
 ﻿using InteraktywnyHarmonogramWPF.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace InteraktywnyHarmonogramWPF.Helpers
 {
     class DostepDoDanych
     {
-        public static List<Zadanie> GetZadania(int dzien, int miesiac, int rok)
+        private static Macierz macierz = Macierz.GetMacierz();
+        public static ObservableCollection<Zadanie> GetZadania(string kategoria)
         {
-            Kalendarz kalendarz = Kalendarz.GetKalendarz();
-            TworzenieEdycjaUsuwanieZadan tw = TworzenieEdycjaUsuwanieZadan.GetInstance();
-
-            Rok szukanyRok = tw.ZlokalizujRokWPamieci(rok);
-
-            return szukanyRok.GetMiesiace()[miesiac - 1].GetDni()[dzien - 1].GetZadania();
-        }
-        public static List<Zadanie> GetZadania(string kategoria)
-        {
-            Macierz macierz = Macierz.GetMacierz();
-
             if (kategoria == "PW")
                 return macierz.PilneWazne;
             else if (kategoria == "NW")
@@ -33,6 +21,16 @@ namespace InteraktywnyHarmonogramWPF.Helpers
             else
                 return macierz.PilneWazne;
         }
+        public static List<Zadanie> GetZadania(int dzien, int miesiac, int rok)
+        {
+            Kalendarz kalendarz = Kalendarz.GetKalendarz();
+            TworzenieEdycjaUsuwanieZadan tw = TworzenieEdycjaUsuwanieZadan.GetInstance();
+
+            Rok szukanyRok = tw.ZlokalizujRokWPamieci(rok);
+
+            return szukanyRok.GetMiesiace()[miesiac - 1].GetDni()[dzien - 1].GetZadania();
+        }
+
         public static Dzien GetDzien(int dzien, int miesiac, int rok)
         {
             Kalendarz kalendarz = Kalendarz.GetKalendarz();
@@ -42,6 +40,7 @@ namespace InteraktywnyHarmonogramWPF.Helpers
 
             return szukanyRok.GetMiesiace()[miesiac - 1].GetDni()[dzien - 1];
         }
+
         public static Miesiac GetMiesiac(int miesiac, int rok)
         {
             Kalendarz kalendarz = Kalendarz.GetKalendarz();
@@ -50,6 +49,18 @@ namespace InteraktywnyHarmonogramWPF.Helpers
             Rok szukanyRok = tw.ZlokalizujRokWPamieci(rok);
 
             return szukanyRok.GetMiesiace()[miesiac - 1];
+        }
+
+        public static void AddZadanie(string kategoria, Zadanie zadanie)
+        {
+            if (kategoria == "PW")
+                macierz.PilneWazne.Add(zadanie);
+            else if (kategoria == "NW")
+                macierz.NiepilneWazne.Add(zadanie);
+            else if (kategoria == "PN")
+                macierz.PilneNiewazne.Add(zadanie);
+            else if (kategoria == "NN")
+                macierz.NiepilneNiewazne.Add(zadanie);
         }
     }
 }

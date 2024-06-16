@@ -5,29 +5,34 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Title="Macierz Eisenhowera">
+    <Page.Resources>
+        <Storyboard x:Key="ColorAnimationStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                            From="Red" To="Blue" Duration="0:0:1" />
+        </Storyboard>
+    </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="AnimatedTextBlock" Text="Macierz Eisenhowera" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Margin="10"/>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Macierz Eisenhowera" FontSize="20" FontWeight="Bold" Margin="10"/>
-
-            <Grid Grid.Row="1" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-            
-                <!-- Pilne i Ważne -->
+            <!-- Pilne i Ważne -->
             <Border Grid.Row="0" Grid.Column="0" Background="IndianRed" Margin="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
+                    <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
@@ -36,7 +41,7 @@
                             <TextBlock Text="Pilne i Ważne" FontWeight="Bold" Margin="5"/>
                             <Button Grid.Column="1" Margin="5" Tag="PW" Click="AddTask_Click">+</Button>
                         </Grid>
-                        <ListView ItemsSource="{Binding PilneWazneZadania}">
+                        <ListView x:Name="PilneWazneListView" ItemsSource="{Binding PilneWazneZadania}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
@@ -53,7 +58,7 @@
             </Border>
 
             <!-- Niepilne, ale Ważne -->
-                <Border Grid.Row="0" Grid.Column="1" Background="LightGreen" Margin="5">
+            <Border Grid.Row="0" Grid.Column="1" Background="LightGreen" Margin="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Grid>
@@ -64,7 +69,7 @@
                             <TextBlock Text="Niepilne, ale ważne" FontWeight="Bold" Margin="5"/>
                             <Button Grid.Column="1" Margin="5" Tag="NW" Click="AddTask_Click">+</Button>
                         </Grid>
-                        <ListView ItemsSource="{Binding NiepilneWazneZadania}">
+                        <ListView x:Name="NiepilneWazneListView" ItemsSource="{Binding NiepilneWazneZadania}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
@@ -77,11 +82,11 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
-                    </ScrollViewer>
-                </Border>
+                </ScrollViewer>
+            </Border>
 
-                <!-- Pilne, ale Nieważne -->
-                <Border Grid.Row="1" Grid.Column="0" Background="MediumPurple" Margin="5">
+            <!-- Pilne, ale Nieważne -->
+            <Border Grid.Row="1" Grid.Column="0" Background="MediumPurple" Margin="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Grid>
@@ -92,7 +97,7 @@
                             <TextBlock Text="Pilne, ale nieważne" FontWeight="Bold" Margin="5"/>
                             <Button Grid.Column="1" Margin="5" Tag="PN" Click="AddTask_Click">+</Button>
                         </Grid>
-                        <ListView ItemsSource="{Binding PilneNiewazneZadania}">
+                        <ListView x:Name="PilneNiewazneListView" ItemsSource="{Binding PilneNiewazneZadania}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
@@ -105,11 +110,11 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
-                    </ScrollViewer>
-                </Border>
+                </ScrollViewer>
+            </Border>
 
-                <!-- Niepilne i Nieważne -->
-                <Border Grid.Row="1" Grid.Column="1" Background="LightBlue" Margin="5">
+            <!-- Niepilne i Nieważne -->
+            <Border Grid.Row="1" Grid.Column="1" Background="LightBlue" Margin="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Grid>
@@ -120,7 +125,7 @@
                             <TextBlock Text="Niepilne i nieważne" FontWeight="Bold" Margin="5"/>
                             <Button Grid.Column="1" Margin="5" Tag="NN" Click="AddTask_Click">+</Button>
                         </Grid>
-                        <ListView ItemsSource="{Binding NiepilneNiewazneZadania}">
+                        <ListView x:Name="NiepilneNiewazneListView" ItemsSource="{Binding NiepilneNiewazneZadania}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
@@ -133,8 +138,8 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
-                    </ScrollViewer>
-                </Border>
-            </Grid>
+                </ScrollViewer>
+            </Border>
         </Grid>
+    </Grid>
 </Page>
