@@ -13,7 +13,7 @@
             <Setter Property="BorderBrush" Value="DarkBlue"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
-        <!-- Globalny styl dla TextBox -->
+        <!-- globalny styl dla TextBox -->
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="5"/>
@@ -22,7 +22,7 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="LightYellow"/>
         </Style>
-        <!-- Globalny styl dla CheckBox -->
+        <!-- globalny styl dla CheckBox -->
         <Style TargetType="CheckBox">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="5"/>

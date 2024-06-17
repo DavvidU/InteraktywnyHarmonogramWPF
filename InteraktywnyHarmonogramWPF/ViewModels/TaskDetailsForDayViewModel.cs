@@ -61,7 +61,8 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
         private void MarkAsCompleted()
         {
             SelectedTask.Wykonane = true;
-            SaveTask();
+            _dayViewModel.TasksInSelectedDay.Remove(SelectedTask);
+            DostepDoDanych.GetDzien(_dayViewModel.SelectedDate.Day, _dayViewModel.SelectedDate.Month, _dayViewModel.SelectedDate.Year).UsunZadanie(SelectedTask);
             MessageBox.Show("Zadanie ukończono pomyślnie.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
             ActionCompleted?.Invoke();
         }
