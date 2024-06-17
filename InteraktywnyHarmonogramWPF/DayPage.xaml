@@ -22,12 +22,11 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
-                    
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Zadania na ten dzień" FontWeight="Bold" Margin="5"/>
                         <Button Grid.Column="1" Margin="5" Tag="{Binding SelectedDate}" Click="AddTask_Click">+</Button>
                     </Grid>
-                    <ListView ItemsSource="{Binding TasksInSelectedDay}">
+                    <ListView ItemsSource="{Binding TasksView}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>

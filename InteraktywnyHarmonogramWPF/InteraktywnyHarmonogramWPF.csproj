@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Images\blog-matryca-eisenhowera.png" />
+    <None Remove="Images\ikona.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <Resource Include="Images\blog-matryca-eisenhowera.png" />
+    <Resource Include="Images\ikona.png" />
   </ItemGroup>
 
 </Project>

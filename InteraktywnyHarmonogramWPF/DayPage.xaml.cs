@@ -30,17 +30,17 @@ namespace InteraktywnyHarmonogramWPF
         {
             if (sender is ListViewItem item && item.DataContext is Zadanie selectedTask)
             {
-                var category = "PW"; // Determine the actual category based on the context
-                var matrixViewModel = (EisenhowerMatrixViewModel)this.DataContext; // Assuming this is set correctly
-                var detailsPage = new TaskDetailsPage(selectedTask, category, matrixViewModel);
+                var dayViewModel = (DayViewModel)this.DataContext;
+                var detailsPage = new TaskDetailsForDayPage(selectedTask, dayViewModel);
                 this.NavigationService.Navigate(detailsPage);
             }
         }
-        private void AddTask_Click(object sender, RoutedEventArgs e) 
+
+        private void AddTask_Click(object sender, RoutedEventArgs e)
         {
             Button clickedAddTaskButton = sender as Button;
-
-            var addTaskPage = new AddTaskPage { DataContext = new AddTaskViewModel(clickedAddTaskButton.Tag.ToString()) };
+            var selectedDate = (DateTime)clickedAddTaskButton.Tag;
+            var addTaskPage = new AddTaskToDayPage { DataContext = new AddTaskToDayViewModel(selectedDate) };
             NavigationService.Navigate(addTaskPage);
         }
     }

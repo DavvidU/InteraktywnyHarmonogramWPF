@@ -88,6 +88,5 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    // Tutaj dodaj metody do zarządzania zadaniami
 }
 

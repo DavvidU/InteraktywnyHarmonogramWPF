@@ -62,5 +62,10 @@ namespace InteraktywnyHarmonogramWPF.Helpers
             else if (kategoria == "NN")
                 macierz.NiepilneNiewazne.Add(zadanie);
         }
+        public static void AddTaskToDay(int dzien, int miesiac, int rok, Zadanie zadanie)
+        {
+            var dzienObj = GetDzien(dzien, miesiac, rok);
+            dzienObj.DodajZadanie(new string[] { "", zadanie.Naglowek, zadanie.Opis, zadanie.Pilne ? "1" : "0", zadanie.Wazne ? "1" : "0", zadanie.Wykonane ? "1" : "0" });
+        }
     }
 }

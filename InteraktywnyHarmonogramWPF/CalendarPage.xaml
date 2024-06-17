@@ -7,6 +7,9 @@
       Title="Kalendarz">
 
     <Grid>
-        <Calendar x:Name="CalendarControl" SelectionMode="MultipleRange" MouseDoubleClick="CalendarControl_MouseDoubleClick"/>
+        <Calendar x:Name="CalendarControl" SelectionMode="MultipleRange" MouseDoubleClick="CalendarControl_MouseDoubleClick"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Margin="0"/>
     </Grid>
 </Page>

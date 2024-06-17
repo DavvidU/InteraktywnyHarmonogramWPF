@@ -1,17 +1,17 @@
 ﻿using InteraktywnyHarmonogramWPF.Models;
-using System.ComponentModel;
-using System.Windows.Input;
-using InteraktywnyHarmonogramWPF.Helpers;
 using System;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Navigation;
+using System.Windows.Input;
+using InteraktywnyHarmonogramWPF.Helpers;
 
 namespace InteraktywnyHarmonogramWPF.ViewModels
 {
-    public class AddTaskViewModel : INotifyPropertyChanged, IDataErrorInfo
+    public class AddTaskToDayViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        public string Sender { get; set; }
+        public DateTime SelectedDate { get; set; }
+
         private string _naglowek;
         public string Naglowek
         {
@@ -44,26 +44,14 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
         public bool Wazne { get; set; }
 
         public ICommand SaveCommand { get; set; }
-        public ICommand MarkAsCompletedCommand { get; set; }
 
-        public AddTaskViewModel(string sender)
+        public AddTaskToDayViewModel(DateTime selectedDate)
         {
-            Sender = sender;
-
-            if (sender == "PW" || sender == "PN")
-                Pilne = true;
-            else
-                Pilne = false;
-
-            if (sender == "PW" || sender == "NW")
-                Wazne = true;
-            else
-                Wazne = false;
-
+            SelectedDate = selectedDate;
             SaveCommand = new RelayCommand(SaveTask);
         }
-    
-        public event Action<string, Zadanie> TaskSaved;
+
+        public event Action<Zadanie> TaskSaved;
 
         private void SaveTask()
         {
@@ -74,12 +62,13 @@ namespace InteraktywnyHarmonogramWPF.ViewModels
             }
 
             var newTask = new Zadanie(Naglowek, Opis, Pilne, Wazne, false);
-            DostepDoDanych.AddZadanie(Sender, newTask);
+            DostepDoDanych.AddTaskToDay(SelectedDate.Day, SelectedDate.Month, SelectedDate.Year, newTask);
 
-            TaskSaved?.Invoke(Sender, newTask);
+            TaskSaved?.Invoke(newTask);
         }
+
         public string this[string columnName]
-        {   
+        {
             get
             {
                 if (columnName == nameof(Naglowek))
